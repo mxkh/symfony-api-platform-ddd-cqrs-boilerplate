@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Acme\Application\UseCase\Command\User\SignUp;
+namespace Sweetspot\Application\UseCase\Command\User\SignUp;
 
-use Acme\Domain\User\Repository\UserRepositoryInterface;
-use Acme\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
-use Acme\Domain\User\User;
+use Sweetspot\Domain\User\Repository\UserRepositoryInterface;
+use Sweetspot\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
+use Sweetspot\Domain\User\User;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class SignUpCommandHandler implements MessageHandlerInterface

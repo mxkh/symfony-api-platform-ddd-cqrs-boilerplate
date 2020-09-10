@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\Shared\Exception;
+namespace Sweetspot\Domain\Shared\Exception;
 
-use Acme\Domain\Shared\Specification\Rule\BusinessRuleSpecificationInterface;
+use Sweetspot\Domain\Shared\Specification\Rule\BusinessRuleSpecificationInterface;
 
 final class BusinessRuleValidationException extends \Exception
 {

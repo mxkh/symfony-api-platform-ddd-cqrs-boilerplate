@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Acme\Infrastructure\User\Query\Mysql;
+namespace Sweetspot\Infrastructure\User\Query\Mysql;
 
-use Acme\Domain\Shared\Query\Exception\NotFoundException;
-use Acme\Domain\User\Repository\CheckUserByEmailInterface;
-use Acme\Domain\User\Repository\GetUserCredentialsByEmailInterface;
-use Acme\Domain\User\Repository\GetUserUuidByEmailInterface;
-use Acme\Domain\User\User;
-use Acme\Domain\User\ValueObject\Email;
-use Acme\Infrastructure\Shared\Query\Repository\AbstractMysqlRepository;
+use Sweetspot\Domain\Shared\Query\Exception\NotFoundException;
+use Sweetspot\Domain\User\Repository\CheckUserByEmailInterface;
+use Sweetspot\Domain\User\Repository\GetUserCredentialsByEmailInterface;
+use Sweetspot\Domain\User\Repository\GetUserUuidByEmailInterface;
+use Sweetspot\Domain\User\User;
+use Sweetspot\Domain\User\ValueObject\Email;
+use Sweetspot\Infrastructure\Shared\Query\Repository\AbstractMysqlRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;

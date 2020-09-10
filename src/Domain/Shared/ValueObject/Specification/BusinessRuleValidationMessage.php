@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\Shared\ValueObject\Specification;
+namespace Sweetspot\Domain\Shared\ValueObject\Specification;
 
 final class BusinessRuleValidationMessage
 {

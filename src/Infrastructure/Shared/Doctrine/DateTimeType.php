@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Acme\Infrastructure\Shared\Doctrine;
+namespace Sweetspot\Infrastructure\Shared\Doctrine;
 
-use Acme\Domain\Shared\Exception\DateTimeException;
-use Acme\Domain\Shared\ValueObject\DateTime;
+use Sweetspot\Domain\Shared\Exception\DateTimeException;
+use Sweetspot\Domain\Shared\ValueObject\DateTime;
 use DateTimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;

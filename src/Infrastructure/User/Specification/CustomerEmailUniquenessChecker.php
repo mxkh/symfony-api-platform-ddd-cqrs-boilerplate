@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Acme\Infrastructure\User\Specification;
+namespace Sweetspot\Infrastructure\User\Specification;
 
-use Acme\Domain\User\Exception\EmailAlreadyExistException;
-use Acme\Domain\User\Repository\CheckUserByEmailInterface;
-use Acme\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
-use Acme\Domain\User\ValueObject\Email;
+use Sweetspot\Domain\User\Exception\EmailAlreadyExistException;
+use Sweetspot\Domain\User\Repository\CheckUserByEmailInterface;
+use Sweetspot\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
+use Sweetspot\Domain\User\ValueObject\Email;
 use Doctrine\ORM\NonUniqueResultException;
 
 final class CustomerEmailUniquenessChecker implements CustomerEmailUniquenessCheckerInterface

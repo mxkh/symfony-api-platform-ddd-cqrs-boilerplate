@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\User\Specification\Checker;
+namespace Sweetspot\Domain\User\Specification\Checker;
 
-use Acme\Domain\User\ValueObject\Auth\Credentials;
+use Sweetspot\Domain\User\ValueObject\Auth\Credentials;
 use Ramsey\Uuid\UuidInterface;
 
 interface CustomerUniquenessCheckerInterface

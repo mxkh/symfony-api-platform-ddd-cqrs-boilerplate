@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\User\ValueObject;
+namespace Sweetspot\Domain\User\ValueObject;
 
 use Webmozart\Assert\Assert;
 

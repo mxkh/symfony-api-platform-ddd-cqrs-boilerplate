@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\Infrastructure;
+namespace Sweetspot\Infrastructure;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

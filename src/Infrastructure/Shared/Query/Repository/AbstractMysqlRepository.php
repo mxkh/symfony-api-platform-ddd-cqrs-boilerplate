@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Acme\Infrastructure\Shared\Query\Repository;
+namespace Sweetspot\Infrastructure\Shared\Query\Repository;
 
-use Acme\Domain\Shared\Query\Exception\NotFoundException;
+use Sweetspot\Domain\Shared\Query\Exception\NotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Acme\Domain\User\Repository;
+namespace Sweetspot\Domain\User\Repository;
 
-use Acme\Domain\User\User;
+use Sweetspot\Domain\User\User;
 use Ramsey\Uuid\UuidInterface;
 
 interface UserRepositoryInterface

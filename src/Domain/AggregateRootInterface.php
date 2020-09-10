@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\Domain;
+namespace Sweetspot\Domain;
 
 interface AggregateRootInterface
 {

@@ -37,12 +37,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Acme\\": "src/"
+      "Sweetspot\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Acme\\Tests\\": "tests/"
+      "Sweetspot\\Tests\\": "tests/"
     }
   },
   "replace": {

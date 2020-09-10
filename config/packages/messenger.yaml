@@ -25,4 +25,4 @@ framework:
 
     routing:
     # Route your messages to the transports
-    # 'Acme\Message\YourMessage': async
+    # 'Sweetspot\Message\YourMessage': async

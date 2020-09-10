@@ -1,8 +1,8 @@
 <?php
 
-namespace Acme\Domain\Shared\Specification\Rule;
+namespace Sweetspot\Domain\Shared\Specification\Rule;
 
-use Acme\Domain\Shared\ValueObject\Specification\BusinessRuleValidationMessage;
+use Sweetspot\Domain\Shared\ValueObject\Specification\BusinessRuleValidationMessage;
 
 interface BusinessRuleSpecificationInterface
 {

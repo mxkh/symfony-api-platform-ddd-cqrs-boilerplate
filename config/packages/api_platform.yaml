@@ -13,10 +13,10 @@ api_platform:
         Doctrine\ORM\OptimisticLockException: 409
 
         # Custom mapping
-        Acme\Domain\Shared\Query\Exception\NotFoundException: 404
-        Acme\Domain\User\Exception\InvalidCredentialsException: 401
-        Acme\Domain\User\Exception\ForbiddenException: 403
-        Acme\Domain\User\Exception\EmailAlreadyExistException: 409
+        Sweetspot\Domain\Shared\Query\Exception\NotFoundException: 404
+        Sweetspot\Domain\User\Exception\InvalidCredentialsException: 401
+        Sweetspot\Domain\User\Exception\ForbiddenException: 403
+        Sweetspot\Domain\User\Exception\EmailAlreadyExistException: 409
 
         # Fallback
         InvalidArgumentException: 400

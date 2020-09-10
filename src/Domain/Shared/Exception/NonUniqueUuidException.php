@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\Shared\Exception;
+namespace Sweetspot\Domain\Shared\Exception;
 
 class NonUniqueUuidException extends \InvalidArgumentException
 {

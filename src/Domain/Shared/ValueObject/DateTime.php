@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\Shared\ValueObject;
+namespace Sweetspot\Domain\Shared\ValueObject;
 
-use Acme\Domain\Shared\Exception\DateTimeException;
+use Sweetspot\Domain\Shared\Exception\DateTimeException;
 
 final class DateTime extends \DateTimeImmutable
 {

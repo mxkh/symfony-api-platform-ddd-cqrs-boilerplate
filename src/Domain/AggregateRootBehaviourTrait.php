@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain;
+namespace Sweetspot\Domain;
 
-use Acme\Domain\Shared\Exception\BusinessRuleValidationException;
-use Acme\Domain\Shared\Specification\Rule\BusinessRuleSpecificationInterface;
+use Sweetspot\Domain\Shared\Exception\BusinessRuleValidationException;
+use Sweetspot\Domain\Shared\Specification\Rule\BusinessRuleSpecificationInterface;
 
 trait AggregateRootBehaviourTrait
 {

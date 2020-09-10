@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\User\Repository;
+namespace Sweetspot\Domain\User\Repository;
 
-use Acme\Domain\User\ValueObject\Email;
+use Sweetspot\Domain\User\ValueObject\Email;
 
 interface GetUserCredentialsByEmailInterface
 {

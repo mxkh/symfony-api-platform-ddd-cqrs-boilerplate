@@ -1,10 +1,10 @@
-Acme\Domain\User\User:
+Sweetspot\Domain\User\User:
     collectionOperations:
       post:
         method: POST
         path: '/users'
         messenger: true
-        input: Acme\Application\UseCase\Command\User\SignUp\SignUpInput
+        input: Sweetspot\Application\UseCase\Command\User\SignUp\SignUpInput
         output: false
         validate: false
         status: 202

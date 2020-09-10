@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\Shared\Query\Exception;
+namespace Sweetspot\Domain\Shared\Query\Exception;
 
 final class NotFoundException extends \Exception
 {

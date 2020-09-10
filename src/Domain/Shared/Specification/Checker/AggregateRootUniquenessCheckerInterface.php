@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\Shared\Specification\Checker;
+namespace Sweetspot\Domain\Shared\Specification\Checker;
 
 use Ramsey\Uuid\UuidInterface;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\Application\UseCase\Command\User\SignUp;
+namespace Sweetspot\Application\UseCase\Command\User\SignUp;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use ApiPlatform\Core\Validator\ValidatorInterface;

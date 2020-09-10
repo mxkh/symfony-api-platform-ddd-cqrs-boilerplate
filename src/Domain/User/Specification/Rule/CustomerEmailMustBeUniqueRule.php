@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\User\Specification\Rule;
+namespace Sweetspot\Domain\User\Specification\Rule;
 
-use Acme\Domain\Shared\Specification\Rule\BusinessRuleSpecificationInterface;
-use Acme\Domain\Shared\ValueObject\Specification\BusinessRuleValidationMessage;
-use Acme\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
-use Acme\Domain\User\ValueObject\Email;
+use Sweetspot\Domain\Shared\Specification\Rule\BusinessRuleSpecificationInterface;
+use Sweetspot\Domain\Shared\ValueObject\Specification\BusinessRuleValidationMessage;
+use Sweetspot\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
+use Sweetspot\Domain\User\ValueObject\Email;
 
 final class CustomerEmailMustBeUniqueRule implements BusinessRuleSpecificationInterface
 {

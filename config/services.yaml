@@ -13,7 +13,7 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    Acme\:
+    Sweetspot\:
         resource: '../src/*'
         exclude:
             - '../src/Domain/*/Exception/*'
@@ -22,11 +22,11 @@ services:
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-#    Acme\UI\Http\Rest\Controller\:
+#    Sweetspot\UI\Http\Rest\Controller\:
 #        resource: '../src/UI/Http/Rest/Controller/*'
 #        tags: ['controller.service_arguments']
 #
-#    Acme\UI\Http\Web\Controller\:
+#    Sweetspot\UI\Http\Web\Controller\:
 #        resource: '../src/UI/Http/Web/Controller/*'
 #        tags: ['controller.service_arguments']
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Acme\Infrastructure\Shared\Doctrine;
+namespace Sweetspot\Infrastructure\Shared\Doctrine;
 
-use Acme\Domain\User\ValueObject\Auth\HashedPassword;
+use Sweetspot\Domain\User\ValueObject\Auth\HashedPassword;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\StringType;

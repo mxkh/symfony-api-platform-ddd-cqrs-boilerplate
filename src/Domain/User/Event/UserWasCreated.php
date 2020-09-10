@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\User\Event;
+namespace Sweetspot\Domain\User\Event;
 
-use Acme\Domain\Shared\ValueObject\DateTime;
-use Acme\Domain\User\ValueObject\Auth\Credentials;
+use Sweetspot\Domain\Shared\ValueObject\DateTime;
+use Sweetspot\Domain\User\ValueObject\Auth\Credentials;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 

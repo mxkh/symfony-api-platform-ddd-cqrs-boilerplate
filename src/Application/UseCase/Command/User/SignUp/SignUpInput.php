@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\Application\UseCase\Command\User\SignUp;
+namespace Sweetspot\Application\UseCase\Command\User\SignUp;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

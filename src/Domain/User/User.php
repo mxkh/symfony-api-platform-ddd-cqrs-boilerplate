@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Acme\Domain\User;
+namespace Sweetspot\Domain\User;
 
-use Acme\Domain\AggregateRootBehaviourTrait;
-use Acme\Domain\AggregateRootInterface;
-use Acme\Domain\Shared\ValueObject\DateTime;
-use Acme\Domain\User\Event\UserWasCreated;
-use Acme\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
-use Acme\Domain\User\Specification\Rule\CustomerEmailMustBeUniqueRule;
-use Acme\Domain\User\ValueObject\Auth\Credentials;
+use Sweetspot\Domain\AggregateRootBehaviourTrait;
+use Sweetspot\Domain\AggregateRootInterface;
+use Sweetspot\Domain\Shared\ValueObject\DateTime;
+use Sweetspot\Domain\User\Event\UserWasCreated;
+use Sweetspot\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
+use Sweetspot\Domain\User\Specification\Rule\CustomerEmailMustBeUniqueRule;
+use Sweetspot\Domain\User\ValueObject\Auth\Credentials;
 use Ramsey\Uuid\UuidInterface;
 
 final class User implements AggregateRootInterface

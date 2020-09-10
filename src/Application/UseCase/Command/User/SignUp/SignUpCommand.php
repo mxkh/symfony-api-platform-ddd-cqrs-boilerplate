@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Acme\Application\UseCase\Command\User\SignUp;
+namespace Sweetspot\Application\UseCase\Command\User\SignUp;
 
-use Acme\Domain\User\ValueObject\Auth\Credentials;
-use Acme\Domain\User\ValueObject\Auth\HashedPassword;
-use Acme\Domain\User\ValueObject\Email;
+use Sweetspot\Domain\User\ValueObject\Auth\Credentials;
+use Sweetspot\Domain\User\ValueObject\Auth\HashedPassword;
+use Sweetspot\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 

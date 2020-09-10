@@ -1,8 +1,8 @@
 <?php
 
-namespace Acme\Domain\User\Specification\Checker;
+namespace Sweetspot\Domain\User\Specification\Checker;
 
-use Acme\Domain\User\ValueObject\Email;
+use Sweetspot\Domain\User\ValueObject\Email;
 
 interface CustomerEmailUniquenessCheckerInterface
 {
