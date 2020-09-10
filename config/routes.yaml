@@ -1,3 +1,15 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+swagger_ui:
+  path: /api/doc
+  controller: api_platform.swagger.action.ui
+
+auth_check:
+  path: /api/auth_check
+
+api_controllers:
+  resource: '../src/UI/Http/Rest/Controller/'
+  type: annotation
+  prefix: /api
+
+web_controllers:
+  resource: '../src/UI/Http/Web/Controller/'
+  type: annotation

@@ -1,0 +1,28 @@
+framework:
+  messenger:
+    default_bus: messenger.bus.command
+    # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
+    # failure_transport: failed
+    buses:
+      messenger.bus.command:
+        default_middleware: false
+        middleware:
+          - handle_message
+
+      messenger.bus.query:
+        default_middleware: false
+        middleware:
+          - handle_message
+
+      messenger.bus.event.async: ~
+
+    transports:
+      # https://symfony.com/doc/current/messenger.html#transport-configuration
+      # async: '%env(MESSENGER_TRANSPORT_DSN)%'
+      # failed: 'doctrine://default?queue_name=failed'
+      # sync: 'sync://'
+      events: "%env(MESSENGER_TRANSPORT_DSN)%"
+
+    routing:
+    # Route your messages to the transports
+    # 'Acme\Message\YourMessage': async

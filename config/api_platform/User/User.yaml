@@ -1,0 +1,38 @@
+Acme\Domain\User\User:
+    collectionOperations:
+      post:
+        method: POST
+        path: '/users'
+        messenger: true
+        input: Acme\Application\UseCase\Command\User\SignUp\SignUpInput
+        output: false
+        validate: false
+        status: 202
+        openapi_context:
+          summary: Create a user account
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    uuid:
+                      type: string
+                      format: uuid
+                      required: true
+                      description: Uuid Version 4 https://www.uuidgenerator.net/
+                    email:
+                      type: string
+                      format: email
+                      required: true
+                    password:
+                      type: string
+                      format: password
+                      required: true
+                      example: yourstrongpassword
+          responses:
+            202:
+              description: Request has been received and will be treated later
+            400:
+              description: Invalid input

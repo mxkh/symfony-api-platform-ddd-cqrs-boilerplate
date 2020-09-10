@@ -15,17 +15,20 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     Acme\:
         resource: '../src/*'
-        exclude: '../src/**/{Migrations,EventSubscriber}'
+        exclude:
+            - '../src/Domain/*/Exception/*'
+            - '../src/Infrastructure/Kernel.php'
+            - '../src/Infrastructure/Shared/Migrations'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    Acme\UI\Http\Rest\Controller:
-        resource: '../src/UI/Http/Rest/Controller/*'
-        tags: ['controller.service_arguments']
-
-    Acme\UI\Http\Web\Controller:
-        resource: '../src/UI/Http/Web/Controller/*'
-        tags: ['controller.service_arguments']
+#    Acme\UI\Http\Rest\Controller\:
+#        resource: '../src/UI/Http/Rest/Controller/*'
+#        tags: ['controller.service_arguments']
+#
+#    Acme\UI\Http\Web\Controller\:
+#        resource: '../src/UI/Http/Web/Controller/*'
+#        tags: ['controller.service_arguments']
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
