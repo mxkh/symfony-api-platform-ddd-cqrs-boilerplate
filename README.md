@@ -14,6 +14,7 @@ Write Model - Domain Driven Design approach (using Doctrine ORM).
 Commands/Queries/Domain Events handling using [Symfony messenger](https://symfony.com/doc/current/components/messenger.html) library.
 
 ## [WiP] Domain
+![domain_model](etc/docs/domain_model.png)
 
 ## [WiP] Validation
 
