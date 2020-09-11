@@ -1,0 +1,4 @@
+doctrine:
+  dbal:
+    types:
+      datetime_immutable: Acme\Infrastructure\Shared\Doctrine\DateTimeType

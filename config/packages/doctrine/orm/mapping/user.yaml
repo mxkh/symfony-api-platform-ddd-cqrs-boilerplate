@@ -1,0 +1,9 @@
+doctrine:
+  orm:
+    mappings:
+      User:
+        is_bundle: false
+        type: xml
+        dir: '%kernel.project_dir%/src/Infrastructure/User/Doctrine/Orm/Mapping'
+        prefix: 'Acme\Domain\User'
+        alias: User
