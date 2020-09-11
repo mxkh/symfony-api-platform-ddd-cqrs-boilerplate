@@ -11,18 +11,7 @@ doctrine:
     default_table_options:
       charset: utf8mb4
       collate: utf8mb4_unicode_ci
-    types:
-      datetime_immutable: Acme\Infrastructure\Shared\Doctrine\DateTimeType
-      Acme\Domain\User\ValueObject\Email: Acme\Infrastructure\Shared\Doctrine\EmailType
-      Acme\Domain\User\ValueObject\Auth\HashedPassword: Acme\Infrastructure\Shared\Doctrine\HashedPasswordType
   orm:
     auto_generate_proxy_classes: true
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     auto_mapping: true
-    mappings:
-      Domain:
-        is_bundle: false
-        type: xml
-        dir: '%kernel.project_dir%/config/doctrine/mapping/orm/domain'
-        prefix: 'Acme\Domain'
-        alias: Domain

@@ -1,0 +1,8 @@
+doctrine:
+  dbal:
+    types:
+      email: Acme\Infrastructure\Shared\Doctrine\EmailType
+      hashed_password: Acme\Infrastructure\Shared\Doctrine\HashedPasswordType
+    mapping_types:
+      email: string
+      hashed_password: string

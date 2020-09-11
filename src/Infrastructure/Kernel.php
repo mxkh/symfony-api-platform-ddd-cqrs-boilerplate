@@ -18,6 +18,7 @@ class Kernel extends BaseKernel
         $confDir = $this->getProjectDir() . '/config';
         $container->import($confDir . '/{packages}/*.yaml');
         $container->import($confDir . '/{packages}/' . $this->environment . '/*.yaml');
+        $container->import($confDir . '/{packages}/{doctrine}/**/*.yaml');
         $container->import($confDir . '/{services}.yaml');
         $container->import($confDir . '/{services}_' . $this->environment . '.yaml');
     }
