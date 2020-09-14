@@ -42,7 +42,7 @@ abstract class AbstractMysqlRepository
      * @throws NonUniqueResultException
      * @throws NotFoundException
      */
-    protected function oneById(string $id):object
+    protected function oneByIdOrException(string $id):object
     {
         $qb = $this->repository
             ->createQueryBuilder('user')

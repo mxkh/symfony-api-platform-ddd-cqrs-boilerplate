@@ -4,22 +4,24 @@ declare(strict_types=1);
 
 namespace Acme\Infrastructure\User\Query\Mysql;
 
-use Acme\Domain\Shared\Query\Exception\NotFoundException;
 use Acme\Domain\User\Repository\CheckUserByEmailInterface;
+use Acme\Domain\User\Repository\GetUserByEmailInterface;
+use Acme\Domain\User\Repository\GetUserByUuidInterface;
 use Acme\Domain\User\Repository\GetUserCredentialsByEmailInterface;
 use Acme\Domain\User\Repository\GetUserUuidByEmailInterface;
 use Acme\Domain\User\User;
 use Acme\Domain\User\ValueObject\Email;
 use Acme\Infrastructure\Shared\Query\Repository\AbstractMysqlRepository;
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 final class MysqlReadModelUserRepository extends AbstractMysqlRepository implements
     CheckUserByEmailInterface,
     GetUserCredentialsByEmailInterface,
-    GetUserUuidByEmailInterface
+    GetUserUuidByEmailInterface,
+    GetUserByUuidInterface,
+    GetUserByEmailInterface
 {
     protected function getClass(): string
     {
@@ -27,23 +29,15 @@ final class MysqlReadModelUserRepository extends AbstractMysqlRepository impleme
     }
 
     /**
-     * @param UuidInterface $uuid
-     *
-     * @return User|object
-     * @throws NotFoundException
-     * @throws NonUniqueResultException
+     * {@inheritDoc}
      */
     public function oneByUuid(UuidInterface $uuid): User
     {
-        return $this->oneById($uuid->getBytes());
+        return $this->oneByIdOrException($uuid->getBytes());
     }
 
     /**
-     * @param Email $email
-     *
-     * @return User|object
-     * @throws NonUniqueResultException
-     * @throws NotFoundException
+     * {@inheritDoc}
      */
     public function oneByEmail(Email $email): User
     {
@@ -56,46 +50,35 @@ final class MysqlReadModelUserRepository extends AbstractMysqlRepository impleme
     }
 
     /**
-     * @param Email $email
-     *
-     * @return bool
-     * @throws NonUniqueResultException
-     * @throws NoResultException
+     * {@inheritDoc}
      */
     public function emailExists(Email $email): bool
     {
-        return 0 !== (int) $this->repository
+        return 0 !== (int)$this->repository
                 ->createQueryBuilder('user')
                 ->select('count(1)')
                 ->where('user.credentials.email = :email')
-                ->setParameter('email', (string) $email)
+                ->setParameter('email', (string)$email)
                 ->getQuery()
                 ->getSingleScalarResult();
     }
 
     /**
-     * @param Email $email
-     *
-     * @return array
-     * @throws NonUniqueResultException
-     * @throws NotFoundException
+     * {@inheritDoc}
      */
     public function getCredentialsByEmail(Email $email): array
     {
         $user = $this->oneByEmail($email);
 
         return [
-            $user->uuid(),
-            $user->email(),
-            $user->encodedPassword(),
+            Uuid::fromString($user->getAggregateRootId()),
+            $user->getCredentials()->email->toString(),
+            $user->getCredentials()->password->toString(),
         ];
     }
 
     /**
-     * @param Email $email
-     *
-     * @return UuidInterface|null
-     * @throws NonUniqueResultException
+     * {@inheritDoc}
      */
     public function getUuidByEmail(Email $email): ?UuidInterface
     {
@@ -103,7 +86,7 @@ final class MysqlReadModelUserRepository extends AbstractMysqlRepository impleme
             ->createQueryBuilder('user')
             ->select('user.uuid')
             ->where('user.credentials.email = :email')
-            ->setParameter('email', (string) $email)
+            ->setParameter('email', (string)$email)
             ->getQuery()
             ->setHydrationMode(AbstractQuery::HYDRATE_ARRAY)
             ->getOneOrNullResult();

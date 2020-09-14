@@ -8,7 +8,7 @@ use Webmozart\Assert\Assert;
 
 final class HashedPassword
 {
-    public const COST=12;
+    public const COST = 12;
 
     private string $hashedPassword;
 
@@ -43,7 +43,7 @@ final class HashedPassword
             throw new \RuntimeException('Server error hashing password');
         }
 
-        return (string) $hashedPassword;
+        return (string)$hashedPassword;
     }
 
     public function toString(): string

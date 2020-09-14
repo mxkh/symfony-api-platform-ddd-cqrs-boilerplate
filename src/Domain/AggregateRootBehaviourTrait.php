@@ -6,16 +6,17 @@ namespace Acme\Domain;
 
 use Acme\Domain\Shared\Exception\BusinessRuleValidationException;
 use Acme\Domain\Shared\Specification\Rule\BusinessRuleSpecificationInterface;
+use Ramsey\Uuid\UuidInterface;
 
 trait AggregateRootBehaviourTrait
 {
-    private string $uuid;
+    private UuidInterface $uuid;
 
     private array $events = [];
 
     public function getAggregateRootId(): string
     {
-        return $this->uuid;
+        return $this->uuid->toString();
     }
 
     public function clearDomainEvents(): array
@@ -24,6 +25,16 @@ trait AggregateRootBehaviourTrait
         $this->events = [];
 
         return $recordedEvents;
+    }
+
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(UuidInterface $uuid): void
+    {
+        $this->uuid = $uuid;
     }
 
     protected function applyDomainEvent(object $event)

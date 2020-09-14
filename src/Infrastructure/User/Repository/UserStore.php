@@ -27,7 +27,7 @@ final class UserStore extends AbstractMysqlRepository implements UserRepositoryI
      */
     public function get(UuidInterface $uuid): User
     {
-        return $this->oneById($uuid->getBytes());
+        return $this->oneByIdOrException($uuid->getBytes());
     }
 
     public function store(User $user): void

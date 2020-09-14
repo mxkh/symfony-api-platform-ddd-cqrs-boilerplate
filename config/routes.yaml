@@ -5,6 +5,11 @@ swagger_ui:
 auth_check:
   path: /api/auth_check
 
+api_platform:
+  resource: .
+  type: api_platform
+  prefix: /api
+
 api_controllers:
   resource: '../src/UI/Http/Rest/Controller/'
   type: annotation

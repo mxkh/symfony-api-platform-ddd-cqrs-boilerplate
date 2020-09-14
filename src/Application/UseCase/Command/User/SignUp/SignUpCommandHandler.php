@@ -7,9 +7,9 @@ namespace Acme\Application\UseCase\Command\User\SignUp;
 use Acme\Domain\User\Repository\UserRepositoryInterface;
 use Acme\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
 use Acme\Domain\User\User;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Acme\Infrastructure\Shared\Bus\Command\CommandHandlerInterface;
 
-final class SignUpCommandHandler implements MessageHandlerInterface
+final class SignUpCommandHandler implements CommandHandlerInterface
 {
     private UserRepositoryInterface $userRepository;
 
