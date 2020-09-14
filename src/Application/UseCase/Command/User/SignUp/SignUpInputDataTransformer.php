@@ -27,7 +27,7 @@ final class SignUpInputDataTransformer implements DataTransformerInterface
         return new SignUpCommand(
             $object->uuid,
             $object->email,
-            $object->email
+            $object->password
         );
     }
 

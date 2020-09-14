@@ -1,22 +1,29 @@
 api_platform:
-    mapping:
-        paths: ['%kernel.project_dir%/config/api_platform']
-    patch_formats:
-        json: ['application/merge-patch+json']
-    swagger:
-        versions: [3]
-    exception_to_status:
-        # The 4 following handlers are registered by default, keep those lines to prevent unexpected side effects
-        Symfony\Component\Serializer\Exception\ExceptionInterface: 400 # Use a raw status code (recommended)
-        ApiPlatform\Core\Exception\InvalidArgumentException: 400
-        ApiPlatform\Core\Exception\FilterValidationException: 400
-        Doctrine\ORM\OptimisticLockException: 409
+  title: DDD CQRS
+  description: Symfony 5 API Platform DDD CQRS boilerplate
+  version: 1.0.0
+  mapping:
+    paths: [ '%kernel.project_dir%/config/api_platform' ]
+  patch_formats:
+    json: [ 'application/merge-patch+json' ]
+  swagger:
+    versions: [3]
+    api_keys:
+      Bearer:
+        name: Bearer
+        type: header
+  exception_to_status:
+    # The 4 following handlers are registered by default, keep those lines to prevent unexpected side effects
+    Symfony\Component\Serializer\Exception\ExceptionInterface: 400 # Use a raw status code (recommended)
+    ApiPlatform\Core\Exception\InvalidArgumentException: 400
+    ApiPlatform\Core\Exception\FilterValidationException: 400
+    Doctrine\ORM\OptimisticLockException: 409
 
-        # Custom mapping
-        Acme\Domain\Shared\Query\Exception\NotFoundException: 404
-        Acme\Domain\User\Exception\InvalidCredentialsException: 401
-        Acme\Domain\User\Exception\ForbiddenException: 403
-        Acme\Domain\User\Exception\EmailAlreadyExistException: 409
+    # Custom mapping
+    Acme\Domain\Shared\Query\Exception\NotFoundException: 404
+    Acme\Domain\User\Exception\InvalidCredentialsException: 401
+    Acme\Domain\User\Exception\ForbiddenException: 403
+    Acme\Domain\User\Exception\EmailAlreadyExistException: 409
 
-        # Fallback
-        InvalidArgumentException: 400
+    # Fallback
+    InvalidArgumentException: 400

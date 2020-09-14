@@ -7,5 +7,6 @@
         <embedded name="credentials" class="Acme\Domain\User\ValueObject\Auth\Credentials"/>
         <field name="createdAt" column="created_at" type="datetime_immutable" />
         <field name="updatedAt" column="updated_at" nullable="true" type="datetime_immutable" />
+        <field name="loggedAt" column="logged_at" nullable="true" type="datetime_immutable" />
     </entity>
 </doctrine-mapping>
