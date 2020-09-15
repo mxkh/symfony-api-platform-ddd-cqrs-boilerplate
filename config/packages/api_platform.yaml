@@ -6,6 +6,12 @@ api_platform:
     paths: [ '%kernel.project_dir%/config/api_platform' ]
   patch_formats:
     json: [ 'application/merge-patch+json' ]
+  formats:
+    json: [ 'application/json' ]
+    jsonapi: [ 'application/vnd.api+json' ]
+    jsonhal: [ 'application/hal+json' ]
+    jsonld: [ 'application/ld+json' ]
+    html: [ 'text/html' ]
   swagger:
     versions: [3]
     api_keys:

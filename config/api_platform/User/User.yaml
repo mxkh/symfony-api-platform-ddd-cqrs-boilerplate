@@ -1,39 +1,71 @@
 Acme\Domain\User\User:
-  collectionOperations:
-    post:
-      method: POST
-      path: '/signup'
-      messenger: true
-      input: Acme\Application\UseCase\Command\User\SignUp\SignUpInput
-      output: false
-      validate: false
-      status: 202
-      openapi_context:
-        summary: Create a user account
-        requestBody:
-          required: true
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  uuid:
-                    type: string
-                    format: uuid
-                    required: true
-                    description: Uuid Version 4 https://www.uuidgenerator.net/
-                  email:
-                    type: string
-                    format: email
-                    required: true
-                  password:
-                    type: string
-                    format: password
-                    required: true
-                    example: yourstrongpassword
-        responses:
-          202:
-            description: Request has been received and will be treated later
-          400:
-            description: Invalid input
-  itemOperations: [ ]
+    properties:
+      uuid:
+        identifier: true
+    collectionOperations:
+      get:
+        method: GET
+        output: Acme\UI\Http\Rest\Presentation\User\UserView
+        normalization_context:
+          groups: [ profile ]
+      get_v2:
+        path: v2/users
+        method: GET
+        output: Acme\UI\Http\Rest\Presentation\User\UserProfileView
+      post:
+        method: POST
+        path: '/signup'
+        messenger: true
+        input: Acme\Application\UseCase\Command\User\SignUp\SignUpInput
+        output: false
+        validate: false
+        status: 202
+        openapi_context:
+          summary: Create a user account
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    uuid:
+                      type: string
+                      format: uuid
+                      required: true
+                      description: Uuid Version 4 https://www.uuidgenerator.net/
+                    email:
+                      type: string
+                      format: email
+                      required: true
+                    password:
+                      type: string
+                      format: password
+                      required: true
+                      example: yourstrongpassword
+          responses:
+            202:
+              description: Request has been received and will be treated later
+            400:
+              description: Invalid input
+    itemOperations:
+      get:
+        method: GET
+        output: Acme\UI\Http\Rest\Presentation\User\UserView
+        normalization_context:
+          groups: [ profile ]
+      get_by_email:
+        method: GET
+        path: '/users-by-email/{email}'
+        controller: Acme\UI\Http\Rest\Controller\User\GetUserByEmailController
+        read: false
+        input: Acme\Application\UseCase\Query\User\FindByEmail\FindByEmailQuery
+        output: Acme\UI\Http\Rest\Presentation\User\UserView
+        normalization_context:
+          groups: [profile]
+        openapi_context:
+          parameters:
+            - in: path
+              name: email
+              type: string
+              required: true

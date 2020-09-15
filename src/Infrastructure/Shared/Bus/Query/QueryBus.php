@@ -22,6 +22,8 @@ final class QueryBus
     }
 
     /**
+     * @param QueryInterface $query
+     *
      * @return mixed
      *
      * @throws Throwable
