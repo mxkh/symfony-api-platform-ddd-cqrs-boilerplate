@@ -17,4 +17,14 @@ final class Credentials
         $this->email = $email;
         $this->password = $password;
     }
+
+    public function getEmail(): Email
+    {
+        return $this->email;
+    }
+
+    public function getPassword(): HashedPassword
+    {
+        return $this->password;
+    }
 }
