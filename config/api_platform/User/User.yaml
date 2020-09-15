@@ -1,71 +1,102 @@
 Acme\Domain\User\User:
-    properties:
-      uuid:
-        identifier: true
-    collectionOperations:
-      get:
-        method: GET
-        output: Acme\UI\Http\Rest\Presentation\User\UserView
-        normalization_context:
-          groups: [ profile ]
-      get_v2:
-        path: v2/users
-        method: GET
-        output: Acme\UI\Http\Rest\Presentation\User\UserProfileView
-      post:
-        method: POST
-        path: '/signup'
-        messenger: true
-        input: Acme\Application\UseCase\Command\User\SignUp\SignUpInput
-        output: false
-        validate: false
-        status: 202
-        openapi_context:
-          summary: Create a user account
-          requestBody:
+  properties:
+    uuid:
+      identifier: true
+  collectionOperations:
+    get:
+      method: GET
+      output: Acme\UI\Http\Rest\Presentation\User\UserView
+      normalization_context:
+        groups: [ profile ]
+    get_v2:
+      path: v2/users
+      method: GET
+      output: Acme\UI\Http\Rest\Presentation\User\UserProfileView
+    post:
+      method: POST
+      path: '/signup'
+      messenger: true
+      input: Acme\Application\UseCase\Command\User\SignUp\SignUpInput
+      output: false
+      validate: false
+      status: 202
+      openapi_context:
+        summary: Create a user account
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                    required: true
+                    description: Uuid Version 4 https://www.uuidgenerator.net/
+                  email:
+                    type: string
+                    format: email
+                    required: true
+                  password:
+                    type: string
+                    format: password
+                    required: true
+                    example: yourstrongpassword
+        responses:
+          202:
+            description: Request has been received and will be treated later
+          400:
+            description: Invalid input
+  itemOperations:
+    change_email:
+      method: PUT
+      path: '/users/{uuid}/email'
+      messenger: true
+      input: Acme\Application\UseCase\Command\User\ChangeEmail\ChangeEmailInput
+      # Check if the user can edit email
+      # - `is_granted` relies on Acme\Infrastructure\User\Security\Voter\UserVoter
+      # - `uuid` comes from URL
+      security: 'is_granted("user_change_email", uuid)'
+      # Disable API Platform data retriever
+      read: false
+      # No content in the response
+      output: false
+      # By pass response validation to allow null response
+      validate: false
+      # Override default documentation
+      openapi_context:
+        summary: Update user email
+        # API Platform only supports identifier named `id` in path
+        parameters:
+          - in: path
+            name: uuid
+            type: string
             required: true
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    uuid:
-                      type: string
-                      format: uuid
-                      required: true
-                      description: Uuid Version 4 https://www.uuidgenerator.net/
-                    email:
-                      type: string
-                      format: email
-                      required: true
-                    password:
-                      type: string
-                      format: password
-                      required: true
-                      example: yourstrongpassword
-          responses:
-            202:
-              description: Request has been received and will be treated later
-            400:
-              description: Invalid input
-    itemOperations:
-      get:
-        method: GET
-        output: Acme\UI\Http\Rest\Presentation\User\UserView
-        normalization_context:
-          groups: [ profile ]
-      get_by_email:
-        method: GET
-        path: '/users-by-email/{email}'
-        controller: Acme\UI\Http\Rest\Controller\User\GetUserByEmailController
-        read: false
-        input: Acme\Application\UseCase\Query\User\FindByEmail\FindByEmailQuery
-        output: Acme\UI\Http\Rest\Presentation\User\UserView
-        normalization_context:
-          groups: [profile]
-        openapi_context:
-          parameters:
-            - in: path
-              name: email
-              type: string
-              required: true
+        responses:
+          204:
+            description: User email updated successfully
+          400:
+            description: Invalid input
+          409:
+            description: Conflict
+    get:
+      method: GET
+      output: Acme\UI\Http\Rest\Presentation\User\UserView
+      normalization_context:
+        groups: [ profile ]
+    get_by_email:
+      method: GET
+      path: '/users-by-email/{email}'
+      controller: Acme\UI\Http\Rest\Controller\User\GetUserByEmailController
+      read: false
+      input: Acme\Application\UseCase\Query\User\FindByEmail\FindByEmailQuery
+      output: Acme\UI\Http\Rest\Presentation\User\UserView
+      normalization_context:
+        groups: [ profile ]
+      openapi_context:
+        parameters:
+          - in: path
+            name: email
+            type: string
+            required: true

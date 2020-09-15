@@ -7,13 +7,16 @@ namespace Acme\Domain\User;
 use Acme\Domain\AggregateRootBehaviourTrait;
 use Acme\Domain\AggregateRootInterface;
 use Acme\Domain\Shared\ValueObject\DateTime;
+use Acme\Domain\User\Event\UserEmailChanged;
 use Acme\Domain\User\Event\UserSignedIn;
 use Acme\Domain\User\Event\UserWasCreated;
 use Acme\Domain\User\Exception\InvalidCredentialsException;
 use Acme\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
 use Acme\Domain\User\Specification\Rule\CustomerEmailMustBeUniqueRule;
 use Acme\Domain\User\ValueObject\Auth\Credentials;
+use Acme\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\UuidInterface;
+use Webmozart\Assert\Assert;
 
 final class User implements AggregateRootInterface
 {
@@ -54,6 +57,14 @@ final class User implements AggregateRootInterface
         $this->addDomainEvent(new UserSignedIn($this->uuid, $this->credentials->email));
     }
 
+    public function changeEmail(
+        Email $email,
+        CustomerEmailUniquenessCheckerInterface $uniqueEmailSpecification
+    ): void {
+        $uniqueEmailSpecification->isUnique($email);
+        $this->addDomainEvent(new UserEmailChanged($this->uuid, $email, DateTime::now()));
+    }
+
     protected function applyUserWasCreated(UserWasCreated $event): void
     {
         $this->uuid = $event->uuid;
@@ -71,6 +82,18 @@ final class User implements AggregateRootInterface
         $this->setLoggedAt($now);
     }
 
+    protected function applyUserEmailChanged(UserEmailChanged $event): void
+    {
+        Assert::notEq(
+            $this->credentials->email->toString(),
+            $event->email->toString(),
+            'New email should be different'
+        );
+
+        $this->setEmail($event->email);
+        $this->setUpdatedAt($event->updatedAt);
+    }
+
     public function getCredentials(): Credentials
     {
         return $this->credentials;
@@ -79,6 +102,11 @@ final class User implements AggregateRootInterface
     public function setCredentials(Credentials $credentials): void
     {
         $this->credentials = $credentials;
+    }
+
+    public function setEmail(Email $email): void
+    {
+        $this->getCredentials()->email = $email;
     }
 
     public function setCreatedAt(DateTime $createdAt): void
