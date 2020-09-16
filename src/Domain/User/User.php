@@ -43,11 +43,6 @@ final class User implements AggregateRootInterface
         return $user;
     }
 
-    public function getUuid(): string
-    {
-        return $this->getAggregateRootId();
-    }
-
     public function signIn(string $plainPassword): void
     {
         if (!$this->credentials->password->match($plainPassword)) {

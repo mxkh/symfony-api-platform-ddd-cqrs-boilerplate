@@ -22,8 +22,6 @@ final class GetUserByEmailController extends QueryController
     {
         $query = new FindByEmailQuery($email);
 
-        $user = $this->ask($query);
-
-        return UserView::create($user);
+        return $this->ask($query);
     }
 }
