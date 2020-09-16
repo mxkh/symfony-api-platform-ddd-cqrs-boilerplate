@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Acme\Domain\User\Event;
 
+use Acme\Domain\Shared\Event\DomainEventInterface;
 use Acme\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\UuidInterface;
 
-final class UserSignedIn
+final class UserSignedIn implements DomainEventInterface
 {
     public Email $email;
 

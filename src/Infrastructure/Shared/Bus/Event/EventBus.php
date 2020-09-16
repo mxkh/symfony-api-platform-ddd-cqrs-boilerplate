@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Acme\Infrastructure\Shared\Bus\Event;
 
+use Acme\Domain\Shared\Event\DomainEventInterface;
 use Acme\Infrastructure\Shared\Bus\MessageBusExceptionTrait;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -21,10 +22,10 @@ final class EventBus
     }
 
     /** @throws Throwable */
-    public function handle(EventInterface $command): void
+    public function handle(DomainEventInterface $event): void
     {
         try {
-            $this->messageBus->dispatch($command);
+            $this->messageBus->dispatch($event);
         } catch (HandlerFailedException $e) {
             $this->throwException($e);
         }

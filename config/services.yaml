@@ -44,6 +44,10 @@ services:
   Acme\Infrastructure\Bridge\ApiPlatform\Serializer\SerializerContextBuilder:
     decorates: api_platform.serializer.context_builder
 
+  Acme\Infrastructure\Bridge\Doctrine\Event\DomainEventCollector:
+    tags:
+      - { name: 'doctrine.event_subscriber' }
+
   # controllers are imported separately to make sure services can be injected
   # as action arguments even if you don't extend any base controller class
   Acme\UI\Http\Rest\Controller\:
