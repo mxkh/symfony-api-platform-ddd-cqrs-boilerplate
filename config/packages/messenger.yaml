@@ -16,7 +16,7 @@ framework:
       messenger.bus.event.async: ~
 
     transports:
-      events: "%env(MESSENGER_TRANSPORT_DSN)%"
+      domain_events: "%env(MESSENGER_TRANSPORT_DSN)%"
 
     routing:
-      Acme\Infrastructure\Shared\Bus\Event\EventInterface: events
+      Acme\Domain\Shared\Event\DomainEventInterface: domain_events
