@@ -5,12 +5,15 @@ Acme\Domain\User\User:
   collectionOperations:
     get:
       method: GET
-      output: Acme\UI\Http\Rest\Presentation\User\UserView
-      normalization_context:
-        groups: [ profile ]
-    get_v2:
-      path: v2/users
-      method: GET
+      filters: [ 'user.search_filter' ]
+        output: Acme\UI\Http\Rest\Presentation\User\UserView
+        normalization_context:
+          groups: [ profile ]
+      get_v2:
+        path: v2/users
+        method: GET
+        query: Acme\Application\UseCase\Query\User\GetUsers\GetUsersQuery
+        filters: [ 'user.search_filter' ]
       output: Acme\UI\Http\Rest\Presentation\User\UserProfileView
     post:
       method: POST

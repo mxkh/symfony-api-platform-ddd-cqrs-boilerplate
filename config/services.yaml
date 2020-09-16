@@ -58,5 +58,20 @@ services:
     resource: '../src/UI/Http/Web/Controller/*'
     tags: [ 'controller.service_arguments' ]
 
+  Acme\Application\UseCase\Query\CollectionQueryFactory:
+    arguments:
+      $collectionOptions: '%api_platform.collection.pagination%'
+
+  acme.user_resource.search_filter:
+    parent: 'api_platform.doctrine.orm.search_filter'
+    arguments: [ { credentials.email: "partial" } ]
+    tags: [ { name: 'api_platform.filter', id: 'user.search_filter' } ]
+    # The following are mandatory only if a _defaults section is defined
+    # You may want to isolate filters in a dedicated file to avoid adding them
+    autowire: false
+    autoconfigure: false
+
+  Acme\Application\UseCase\Query\User\GetUsers\GetUsersQueryHandler:
+    arguments: ['api_platform.doctrine.orm.default.collection_data_provider']
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones

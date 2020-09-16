@@ -12,12 +12,20 @@ api_platform:
     jsonhal: [ 'application/hal+json' ]
     jsonld: [ 'application/ld+json' ]
     html: [ 'text/html' ]
+  collection:
+    pagination:
+      client_items_per_page: true
+      items_per_page_parameter_name: limit
+      items_per_page: 50
   swagger:
     versions: [3]
     api_keys:
       Bearer:
         name: Bearer
         type: header
+
+  path_segment_name_generator: api_platform.path_segment_name_generator.dash
+
   exception_to_status:
     # The 4 following handlers are registered by default, keep those lines to prevent unexpected side effects
     Symfony\Component\Serializer\Exception\ExceptionInterface: 400 # Use a raw status code (recommended)
