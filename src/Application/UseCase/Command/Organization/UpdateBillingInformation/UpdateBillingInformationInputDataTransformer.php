@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Acme\Application\UseCase\Command\User\ChangeEmail;
+namespace Acme\Application\UseCase\Command\Organization\UpdateBillingInformation;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use ApiPlatform\Core\Validator\ValidatorInterface;
 use Ramsey\Uuid\UuidInterface;
 
-final class ChangeEmailDataTransformer implements DataTransformerInterface
+final class UpdateBillingInformationInputDataTransformer implements DataTransformerInterface
 {
     private ValidatorInterface $validator;
 
@@ -19,8 +19,8 @@ final class ChangeEmailDataTransformer implements DataTransformerInterface
 
     public function transform($object, string $to, array $context = [])
     {
-        if (!$object instanceof ChangeEmailInput) {
-            throw new \InvalidArgumentException(\sprintf('Object is not an instance of %s', ChangeEmailInput::class));
+        if (!$object instanceof UpdateBillingInformationInput) {
+            throw new \InvalidArgumentException(\sprintf('Object is not an instance of %s', UpdateBillingInformationInput::class));
         }
 
         if (!isset($context['uuid'])) {
@@ -33,11 +33,22 @@ final class ChangeEmailDataTransformer implements DataTransformerInterface
 
         $this->validator->validate($object, $context);
 
-        return new ChangeEmailCommand($uuid->toString(), $object->email);
+        return new UpdateBillingInformationCommand(
+            $uuid->toString(),
+            $object->companyName,
+            $object->addressLine1,
+            $object->addressLine2,
+            $object->city,
+            $object->region,
+            $object->country,
+            $object->zipCode,
+            $object->phoneNumber,
+            $object->email
+        );
     }
 
     public function supportsTransformation($data, string $to, array $context = []): bool
     {
-        return ChangeEmailInput::class === ($context['input']['class'] ?? null);
+        return UpdateBillingInformationInput::class === ($context['input']['class'] ?? null);
     }
 }

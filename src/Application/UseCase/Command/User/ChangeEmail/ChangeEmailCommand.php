@@ -9,7 +9,7 @@ use Acme\Infrastructure\Shared\Bus\Command\CommandInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ChangeEmailCommand implements CommandInterface
+final class ChangeEmailCommand implements CommandInterface
 {
     private UuidInterface $userUuid;
 

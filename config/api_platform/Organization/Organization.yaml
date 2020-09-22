@@ -1,0 +1,98 @@
+Acme\Domain\Organization\Organization:
+  properties:
+    uuid:
+      identifier: true
+  collectionOperations:
+    post:
+      method: POST
+      path: '/organizations'
+      messenger: true
+      input: Acme\Application\UseCase\Command\Organization\CreateOrganization\CreateOrganizationInput
+      output: false
+      validate: false
+      status: 202
+      openapi_context:
+        summary: Create an organization
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                    required: true
+                    description: Uuid Version 4 https://www.uuidgenerator.net/
+                  name:
+                    type: string
+                    required: true
+                    example: Apple
+                  description:
+                    type: string
+                    required: true
+                  shortDescription:
+                    type: string
+                    required: true
+                  addressLine1:
+                    type: string
+                    required: true
+                    example: One Apple Park Way
+                  addressLine2:
+                    type: string
+                    required: true
+                  city:
+                    type: string
+                    required: true
+                    example: Cupertino
+                  region:
+                    type: string
+                    required: true
+                    example: CA
+                  country:
+                    type: string
+                    required: true
+                    example: USA
+                  zipCode:
+                    type: string
+                    required: true
+                    example: "95014"
+        responses:
+          202:
+            description: Request has been received and will be treated later
+          400:
+            description: Invalid input
+  itemOperations:
+    get:
+      method: GET
+#      output: Acme\UI\Http\Rest\Presentation\User\UserView
+#      normalization_context:
+#        groups: [ profile ]
+    update_billing_information:
+      method: PUT
+      path: '/organizations/{uuid}/billing_information'
+      messenger: true
+      input: Acme\Application\UseCase\Command\Organization\UpdateBillingInformation\UpdateBillingInformationInput
+      # Disable API Platform data retriever
+      read: false
+      # No content in the response
+      output: false
+      # By pass response validation to allow null response
+      validate: false
+      # Override default documentation
+      openapi_context:
+        summary: Update organization's billing information
+        # API Platform only supports identifier named `id` in path
+        parameters:
+          - in: path
+            name: uuid
+            type: string
+            required: true
+        responses:
+          204:
+            description: User email updated successfully
+          400:
+            description: Invalid input
+          409:
+            description: Conflict

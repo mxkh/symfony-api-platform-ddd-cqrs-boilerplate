@@ -7,6 +7,7 @@
     "ext-iconv": "*",
     "ext-json": "*",
     "api-platform/core": "^2.5",
+    "giggsey/libphonenumber-for-php": "^8.12",
     "lexik/jwt-authentication-bundle": "^2.8",
     "nelmio/cors-bundle": "^2.1",
     "ramsey/uuid-doctrine": "^1.6",

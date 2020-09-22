@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <embeddable name="Acme\Domain\Organization\ValueObject\BillingInformation">
+        <field name="companyName" type="string" column="company_name" nullable="true"/>
+        <embedded name="companyAddress" class="Acme\Domain\Organization\ValueObject\Address"/>
+        <field name="phoneNumber" type="phone_number" column="phone_number" nullable="true"/>
+        <field name="email" type="email" column="email" nullable="true"/>
+    </embeddable>
+</doctrine-mapping>
