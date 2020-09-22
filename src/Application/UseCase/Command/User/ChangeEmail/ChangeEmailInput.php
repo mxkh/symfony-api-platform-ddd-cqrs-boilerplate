@@ -6,7 +6,7 @@ namespace Acme\Application\UseCase\Command\User\ChangeEmail;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ChangeEmailInput
+final class ChangeEmailInput
 {
     /**
      * @Assert\Email

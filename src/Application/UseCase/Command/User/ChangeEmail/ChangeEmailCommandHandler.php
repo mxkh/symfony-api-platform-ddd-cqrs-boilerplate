@@ -8,7 +8,7 @@ use Acme\Domain\User\Repository\UserRepositoryInterface;
 use Acme\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
 use Acme\Infrastructure\Shared\Bus\Command\CommandHandlerInterface;
 
-class ChangeEmailCommandHandler implements CommandHandlerInterface
+final class ChangeEmailCommandHandler implements CommandHandlerInterface
 {
     private UserRepositoryInterface $userRepository;
 
