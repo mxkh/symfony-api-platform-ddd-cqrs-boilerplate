@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <embeddable name="Acme\Domain\Organization\ValueObject\Address">
+        <field name="addressLine1" type="string" column="addressLine1" nullable="true"/>
+        <field name="addressLine2" type="string" column="addressLine2" nullable="true"/>
+        <field name="city" type="string" column="city" nullable="true"/>
+        <field name="region" type="string" column="region" nullable="true"/>
+        <field name="country" type="string" column="country" nullable="true"/>
+        <field name="zipCode" type="string" column="zipCode" nullable="true"/>
+    </embeddable>
+</doctrine-mapping>

@@ -2,16 +2,12 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="Acme\Domain\User\User" table="user">
+    <entity name="Acme\Domain\Organization\Organization" table="organization">
         <id name="uuid" type="uuid_binary" column="uuid"/>
-        <embedded name="credentials" class="Acme\Domain\User\ValueObject\Auth\Credentials"/>
+        <embedded name="profile" class="Acme\Domain\Organization\ValueObject\OrganizationProfile"/>
+        <embedded name="billingInformation" class="Acme\Domain\Organization\ValueObject\BillingInformation"/>
+        <embedded name="address" class="Acme\Domain\Organization\ValueObject\Address"/>
         <field name="createdAt" column="created_at" type="datetime_immutable" />
         <field name="updatedAt" column="updated_at" nullable="true" type="datetime_immutable" />
-        <field name="loggedAt" column="logged_at" nullable="true" type="datetime_immutable" />
-        <one-to-many field="userRoles" target-entity="Acme\Domain\User\UserRole" mapped-by="user" orphan-removal="true">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
-        </one-to-many>
     </entity>
 </doctrine-mapping>

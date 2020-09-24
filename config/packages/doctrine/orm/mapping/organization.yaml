@@ -1,0 +1,9 @@
+doctrine:
+  orm:
+    mappings:
+      Organization:
+        is_bundle: false
+        type: xml
+        dir: '%kernel.project_dir%/src/Infrastructure/Organization/Doctrine/Orm/Mapping'
+        prefix: 'Acme\Domain\Organization'
+        alias: Organization

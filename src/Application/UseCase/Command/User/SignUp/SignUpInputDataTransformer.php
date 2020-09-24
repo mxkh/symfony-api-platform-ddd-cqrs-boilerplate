@@ -6,6 +6,7 @@ namespace Acme\Application\UseCase\Command\User\SignUp;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use ApiPlatform\Core\Validator\ValidatorInterface;
+use InvalidArgumentException;
 
 final class SignUpInputDataTransformer implements DataTransformerInterface
 {
@@ -18,8 +19,8 @@ final class SignUpInputDataTransformer implements DataTransformerInterface
 
     public function transform($object, string $to, array $context = [])
     {
-        if (!$object instanceof SignUpInput) {
-            throw new \InvalidArgumentException(\sprintf('Object is not an instance of %s', SignUpInput::class));
+        if (false === $object instanceof SignUpInput) {
+            throw new InvalidArgumentException(sprintf('Object is not an instance of %s', SignUpInput::class));
         }
 
         $this->validator->validate($object, $context);
