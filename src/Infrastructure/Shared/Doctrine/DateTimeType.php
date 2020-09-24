@@ -11,7 +11,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType;
 
-class DateTimeType extends DateTimeImmutableType
+final class DateTimeType extends DateTimeImmutableType
 {
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {

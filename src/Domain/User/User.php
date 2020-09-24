@@ -6,15 +6,24 @@ namespace Acme\Domain\User;
 
 use Acme\Domain\AggregateRootBehaviourTrait;
 use Acme\Domain\AggregateRootInterface;
+use Acme\Domain\Organization\Organization;
 use Acme\Domain\Shared\ValueObject\DateTime;
+use Acme\Domain\User\Event\OrganizationHasBeenAssigned;
+use Acme\Domain\User\Event\UserRoleChanged;
 use Acme\Domain\User\Event\UserEmailChanged;
 use Acme\Domain\User\Event\UserSignedIn;
 use Acme\Domain\User\Event\UserWasCreated;
+use Acme\Domain\User\Event\UserWasCreatedInOrganization;
 use Acme\Domain\User\Exception\InvalidCredentialsException;
 use Acme\Domain\User\Specification\Checker\CustomerEmailUniquenessCheckerInterface;
 use Acme\Domain\User\Specification\Rule\CustomerEmailMustBeUniqueRule;
 use Acme\Domain\User\ValueObject\Auth\Credentials;
 use Acme\Domain\User\ValueObject\Email;
+use Acme\Domain\User\ValueObject\Role;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Expr\Comparison;
 use Ramsey\Uuid\UuidInterface;
 use Webmozart\Assert\Assert;
 
@@ -24,11 +33,19 @@ final class User implements AggregateRootInterface
 
     private Credentials $credentials;
 
+    /** @var Collection|UserRole[] */
+    private Collection $userRoles;
+
     private DateTime $createdAt;
 
     private DateTime $updatedAt;
 
     private DateTime $loggedAt;
+
+    public function __construct()
+    {
+        $this->userRoles = new ArrayCollection();
+    }
 
     public static function create(
         UuidInterface $uuid,
@@ -39,6 +56,20 @@ final class User implements AggregateRootInterface
 
         $user = new static();
         $user->addDomainEvent(new UserWasCreated($uuid, $credentials, DateTime::now()));
+
+        return $user;
+    }
+
+    public static function createInOrganization(
+        UuidInterface $uuid,
+        Credentials $credentials,
+        Organization $organization,
+        CustomerEmailUniquenessCheckerInterface $customerEmailUniquenessChecker
+    ): self {
+        static::checkRule(new CustomerEmailMustBeUniqueRule($customerEmailUniquenessChecker, $credentials->email));
+
+        $user = new static();
+        $user->addDomainEvent(new UserWasCreatedInOrganization($uuid, $credentials, $organization, DateTime::now()));
 
         return $user;
     }
@@ -60,12 +91,40 @@ final class User implements AggregateRootInterface
         $this->addDomainEvent(new UserEmailChanged($this->uuid, $email, DateTime::now()));
     }
 
+    public function assignOrganization(Organization $organization, Role $role): void
+    {
+        //todo: must check if organization has been assigned already
+        $this->addDomainEvent(new OrganizationHasBeenAssigned($organization, $role, DateTime::now()));
+    }
+
+    public function changeUserRole(Organization $organization, Role $role): void
+    {
+        $this->addDomainEvent(new UserRoleChanged($organization, $role, DateTime::now()));
+    }
+
     protected function applyUserWasCreated(UserWasCreated $event): void
     {
         $this->uuid = $event->uuid;
 
         $this->setCredentials($event->credentials);
         $this->setCreatedAt($event->createdAt);
+    }
+
+    protected function applyUserWasCreatedInOrganization(UserWasCreatedInOrganization $event): void
+    {
+        $this->uuid = $event->uuid;
+
+        $this->setCredentials($event->credentials);
+
+        $userRole = new UserRole();
+        $userRole->setRole(Role::create());
+        $userRole->setOrganization($event->organization);
+        $userRole->setUser($this);
+
+        $this->userRoles->add($userRole);
+
+        $this->setCreatedAt($event->createdAt);
+        $this->setUpdatedAt($event->createdAt);
     }
 
     protected function applyUserSignedIn(UserSignedIn $event): void
@@ -87,6 +146,47 @@ final class User implements AggregateRootInterface
 
         $this->setEmail($event->email);
         $this->setUpdatedAt($event->updatedAt);
+    }
+
+    protected function applyUserRoleChanged(UserRoleChanged $event): void
+    {
+        //todo: complete this event
+        $this->changeUserRoleInOrganization($event->organization, $event->role);
+        $this->setUpdatedAt($event->updatedAt);
+    }
+
+    protected function applyOrganizationHasBeenAssigned(OrganizationHasBeenAssigned $event): void
+    {
+        $userRole = new UserRole();
+        $userRole->setRole($event->role);
+        $userRole->setOrganization($event->organization);
+        $userRole->setUser($this);
+
+        $this->userRoles->add($userRole);
+
+        $this->setUpdatedAt($event->updatedAt);
+    }
+
+    protected function changeUserRoleInOrganization(Organization $organization, Role $role): void
+    {
+        $criteria = Criteria::create()
+            ->where(new Comparison('organization', Comparison::EQ, $organization));
+
+        $result = $this->userRoles->matching($criteria);
+
+        if (0 === $result->count()) {
+            throw new InvalidCredentialsException(/* todo: User is not a member of the organization */);
+        }
+
+        if (1 === $result->count()) {
+            /** @var UserRole $userRole */
+            $userRole = $result->first();
+            $userRole->setRole($role);
+
+            return;
+        }
+
+        throw new InvalidCredentialsException(/* todo: something wen't wrong */);
     }
 
     public function getCredentials(): Credentials

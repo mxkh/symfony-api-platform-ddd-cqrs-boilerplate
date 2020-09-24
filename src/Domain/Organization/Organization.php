@@ -43,6 +43,11 @@ final class Organization implements AggregateRootInterface
         return $organization;
     }
 
+    public function getName(): string
+    {
+        return $this->profile->getName();
+    }
+
     public function updateBillingInformation(
         string $companyName,
         Email $email,

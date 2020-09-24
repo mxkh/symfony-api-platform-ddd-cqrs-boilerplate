@@ -21,4 +21,9 @@ final class OrganizationProfile
         $this->description = $description;
         $this->shorDescription = $shorDescription;
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

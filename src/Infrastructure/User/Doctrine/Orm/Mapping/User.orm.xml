@@ -8,5 +8,10 @@
         <field name="createdAt" column="created_at" type="datetime_immutable" />
         <field name="updatedAt" column="updated_at" nullable="true" type="datetime_immutable" />
         <field name="loggedAt" column="logged_at" nullable="true" type="datetime_immutable" />
+        <one-to-many field="userRoles" target-entity="Acme\Domain\User\UserRole" mapped-by="user" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>
