@@ -1,0 +1,36 @@
+Acme\Domain\Order\Order:
+  properties:
+    uuid:
+      identifier: true
+  collectionOperations:
+    create_order:
+      method: POST
+      path: '/orders'
+      messenger: true
+      input: Acme\Application\UseCase\Command\Order\CreateOrder\CreateOrderInput
+      output: Acme\UI\Http\Rest\Presentation\Order\OrderView
+      normalization_context:
+        groups: [ order ]
+  itemOperations:
+    update_order:
+      method: PUT
+      path: '/orders/{uuid}'
+      status: 202
+      messenger: true
+      input: Acme\Application\UseCase\Command\Order\UpdateOrder\UpdateOrderInput
+      output: false
+      read: false
+      openapi_context:
+        summary: Update order async
+        parameters:
+          - in: path
+            name: uuid
+            type: string
+            required: true
+        responses:
+          202:
+            description: Order updating in process
+          400:
+            description: Invalid input
+          409:
+            description: Conflict
